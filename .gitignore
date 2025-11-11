@@ -1,0 +1,10 @@
+.pio
+.vscode
+.zed
+.DS_Store
+.platformio
+chamber/
+camera/
+old_infrastructure_pipeline/
+timelapse/
+web/

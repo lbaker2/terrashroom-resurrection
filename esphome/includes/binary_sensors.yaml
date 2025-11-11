@@ -1,0 +1,15 @@
+- platform: gpio
+  id: water_level_sensor
+  name: "Water Level Low"
+  device_class: problem
+  entity_category: diagnostic
+  pin:
+    number: GPIO23
+    mode:
+      input: true
+      pullup: false
+      pulldown: true
+    inverted: true
+  filters:
+    - delayed_on: 200ms
+    - delayed_off: 200ms

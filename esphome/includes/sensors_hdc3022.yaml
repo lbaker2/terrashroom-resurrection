@@ -1,0 +1,25 @@
+# Placeholder for HDC3022 custom component wiring.
+# TODO: implement a custom component or template sensor once native support exists.
+# Example skeleton:
+#
+# - platform: custom
+#   lambda: |-
+#     auto hdc = new MyHDC3022Sensor(0x40);
+#     App.register_component(hdc);
+#     return {hdc->temperature_sensor, hdc->humidity_sensor};
+#   sensors:
+#     - name: "Chamber Temperature °C"
+#       id: chamber_temperature_c
+#     - name: "Chamber Humidity"
+#       id: chamber_humidity
+#
+# - platform: template
+#   name: "Chamber Temperature"
+#   id: chamber_temperature
+#   unit_of_measurement: "°F"
+#   accuracy_decimals: 1
+#   lambda: |-
+#     if (isnan(id(chamber_temperature_c).state)) {
+#       return NAN;
+#     }
+#     return id(chamber_temperature_c).state * 9.0f / 5.0f + 32.0f;

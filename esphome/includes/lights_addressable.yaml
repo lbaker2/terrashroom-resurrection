@@ -1,0 +1,97 @@
+  - platform: neopixelbus
+    id: base_lights
+    name: "Base Lights"
+    type: GRB
+    variant: WS2812
+    pin: GPIO5
+    num_leds: 24
+    default_transition_length: 0s
+    effects:
+      - addressable_lambda:
+          name: "Startup Chase"
+          update_interval: 50ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(0, 255, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
+      - addressable_lambda:
+          name: "Warning Chase"
+          update_interval: 60ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(255, 0, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
+      - addressable_lambda:
+          name: "Testing Chase"
+          update_interval: 60ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(255, 255, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
+
+  - platform: neopixelbus
+    id: canopy_lights
+    name: "Canopy Lights"
+    type: GRB
+    variant: WS2812
+    pin: GPIO14
+    num_leds: 64
+    default_transition_length: 0s
+    effects:
+      - addressable_lambda:
+          name: "Startup Chase"
+          update_interval: 50ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(0, 255, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
+      - addressable_lambda:
+          name: "Warning Chase"
+          update_interval: 60ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(255, 0, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
+      - addressable_lambda:
+          name: "Testing Chase"
+          update_interval: 60ms
+          lambda: |-
+            static uint16_t step = 0;
+            for (int i = 0; i < it.size(); i++) {
+              if ((i + step) % 6 == 0) {
+                it[i] = ESPColor(255, 255, 0);
+              } else {
+                it[i] = ESPColor::BLACK;
+              }
+            }
+            step++;
