@@ -2,7 +2,7 @@
 
 number:
   - platform: template
-    name: "${friendly_name} Blower Speed"
+    name: "Blower Speed"
     id: blower_speed_number
     min_value: 0.392
     max_value: 1.0
@@ -20,7 +20,7 @@ number:
 
   # Future: Humidity setpoint slider
   # - platform: template
-  #   name: "${friendly_name} Humidity Setpoint"
+  #   name: "Humidity Setpoint"
   #   id: humidity_setpoint
   #   min_value: 70
   #   max_value: 95
@@ -32,7 +32,7 @@ number:
 
   # Future: Temperature setpoint slider
   # - platform: template
-  #   name: "${friendly_name} Temperature Setpoint"
+  #   name: "Temperature Setpoint"
   #   id: temperature_setpoint
   #   min_value: 55
   #   max_value: 85
@@ -44,7 +44,7 @@ number:
 
   # Future: FAE interval slider
   # - platform: template
-  #   name: "${friendly_name} FAE Interval"
+  #   name: "FAE Interval"
   #   id: fae_interval
   #   min_value: 300
   #   max_value: 7200

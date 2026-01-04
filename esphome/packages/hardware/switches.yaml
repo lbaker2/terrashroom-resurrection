@@ -2,7 +2,7 @@
 
 switch:
   - platform: gpio
-    name: "${friendly_name} UV LED"
+    name: "UV LED"
     id: uv_led_switch
     pin: GPIO18
     restore_mode: RESTORE_DEFAULT_OFF
@@ -10,14 +10,14 @@ switch:
   # Note: GPIO15 is a strapping pin - avoid external pull-ups/pull-downs
   - platform: gpio
     id: water_read_enable_switch
-    name: "${friendly_name} Water Read Enable"
+    name: "Water Read Enable"
     pin: GPIO15
     restore_mode: RESTORE_DEFAULT_OFF
     entity_category: diagnostic
     internal: true
 
   - platform: gpio
-    name: "${friendly_name} Camera Power"
+    name: "Camera Power"
     id: camera_power_switch
     pin: GPIO26
     restore_mode: RESTORE_DEFAULT_OFF

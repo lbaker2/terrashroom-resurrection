@@ -3,7 +3,7 @@
 binary_sensor:
   - platform: gpio
     id: water_level_sensor
-    name: "${friendly_name} Water Level Low"
+    name: "Water Level Low"
     device_class: problem
     entity_category: diagnostic
     pin:

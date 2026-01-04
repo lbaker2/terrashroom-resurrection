@@ -5,19 +5,19 @@ sensor:
   - platform: hdc1080
     update_interval: 30s
     temperature:
-      name: "${friendly_name} Temperature Celsius"
+      name: "Temperature Celsius"
       id: chamber_temperature_celsius
       unit_of_measurement: "°C"
       accuracy_decimals: 1
     humidity:
-      name: "${friendly_name} Humidity"
+      name: "Humidity"
       id: chamber_humidity
       unit_of_measurement: "%"
       accuracy_decimals: 1
 
   # Fahrenheit conversion
   - platform: template
-    name: "${friendly_name} Temperature"
+    name: "Temperature"
     id: chamber_temperature
     unit_of_measurement: "°F"
     accuracy_decimals: 1

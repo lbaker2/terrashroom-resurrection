@@ -6,7 +6,7 @@
 # Future implementation:
 # select:
 #   - platform: template
-#     name: "${friendly_name} Species"
+#     name: "Species"
 #     id: species_select
 #     optimistic: true
 #     options:
@@ -20,7 +20,7 @@
 #       - script.execute: apply_profile
 #
 #   - platform: template
-#     name: "${friendly_name} Growth Phase"
+#     name: "Growth Phase"
 #     id: phase_select
 #     optimistic: true
 #     options:
@@ -32,7 +32,7 @@
 
 # text_sensor:
 #   - platform: template
-#     name: "${friendly_name} Active Profile"
+#     name: "Active Profile"
 #     id: active_profile_sensor
 #     lambda: |-
 #       std::string species = id(species_select).current_option();

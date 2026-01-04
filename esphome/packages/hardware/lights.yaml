@@ -3,31 +3,31 @@
 light:
   # PWM outputs exposed as lights for web UI control
   - platform: monochromatic
-    name: "${friendly_name} Fan 1"
+    name: "Fan 1"
     output: fan1_pwm
     id: fan1_light
     default_transition_length: 1s
 
   - platform: monochromatic
-    name: "${friendly_name} Fan 2"
+    name: "Fan 2"
     output: fan2_pwm
     id: fan2_light
     default_transition_length: 1s
 
   - platform: monochromatic
-    name: "${friendly_name} Blower"
+    name: "Blower"
     output: blower_pwm
     id: blower_light
     default_transition_length: 1s
 
   - platform: monochromatic
-    name: "${friendly_name} Atomizer"
+    name: "Atomizer"
     output: atomizer_pwm
     id: atomizer_light
     default_transition_length: 0s
 
   - platform: monochromatic
-    name: "${friendly_name} Heater"
+    name: "Heater"
     output: heater_pwm
     id: heater_light
     default_transition_length: 1s
@@ -35,7 +35,7 @@ light:
   # Addressable LED strips
   - platform: esp32_rmt_led_strip
     id: base_lights
-    name: "${friendly_name} Base Lights"
+    name: "Base Lights"
     rgb_order: GRB
     chipset: WS2812
     pin: GPIO5
@@ -45,7 +45,7 @@ light:
 
   - platform: esp32_rmt_led_strip
     id: canopy_lights
-    name: "${friendly_name} Canopy Lights"
+    name: "Canopy Lights"
     rgb_order: GRB
     chipset: WS2812
     pin: GPIO14

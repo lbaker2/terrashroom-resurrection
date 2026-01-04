@@ -2,14 +2,14 @@
 
 button:
   - platform: template
-    name: "${friendly_name} Read Water Level"
+    name: "Read Water Level"
     entity_category: diagnostic
     on_press:
       - script.execute: water_level_self_test
 
 select:
   - platform: template
-    name: "${friendly_name} Default Animation"
+    name: "Default Animation"
     id: addressable_default_animation
     optimistic: true
     options:

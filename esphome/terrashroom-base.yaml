@@ -21,7 +21,7 @@ esphome:
       - "platformio/framework-espidf@~3.50402.0"
     board_build.flash_mode: "dio"
     extra_scripts:
-      - "post:scripts/cancel_binary_merge.py"
+      - "post:../../../scripts/cancel_binary_merge.py"
 
   includes:
     - includes/control_logic.h
