@@ -1,0 +1,121 @@
+# LED Effect Scripts
+
+button:
+  - platform: template
+    name: "${friendly_name} Read Water Level"
+    entity_category: diagnostic
+    on_press:
+      - script.execute: water_level_self_test
+
+select:
+  - platform: template
+    name: "${friendly_name} Default Animation"
+    id: addressable_default_animation
+    optimistic: true
+    options:
+      - "Off"
+      - "Solid White"
+      - "Solid Blue"
+    initial_option: "Solid White"
+    set_action:
+      - script.execute: apply_default_animation
+
+script:
+  - id: water_level_self_test
+    mode: restart
+    then:
+      - logger.log:
+          tag: water
+          level: INFO
+          format: "Running water level self-test"
+      - switch.turn_on: water_read_enable_switch
+      - delay: 50ms
+      - lambda: |-
+          bool low = id(water_level_sensor).state;
+          if (low) {
+            ESP_LOGW("water", "Water level sensor reports LOW during self-test");
+          } else {
+            ESP_LOGI("water", "Water level sensor reports OK during self-test");
+          }
+          id(water_level_sensor).publish_state(low);
+      - switch.turn_off: water_read_enable_switch
+
+  - id: startup_chase
+    mode: restart
+    then:
+      - script.execute: apply_default_animation
+
+  - id: warning_chase
+    mode: restart
+    then:
+      - light.turn_on:
+          id: base_lights
+          effect: "Warning Chase"
+      - light.turn_on:
+          id: canopy_lights
+          effect: "Warning Chase"
+
+  - id: testing_chase
+    mode: restart
+    then:
+      - light.turn_on:
+          id: base_lights
+          effect: "Testing Chase"
+      - light.turn_on:
+          id: canopy_lights
+          effect: "Testing Chase"
+
+  - id: stop_addressable_effects
+    mode: restart
+    then:
+      - script.execute: apply_default_animation
+
+  - id: apply_default_animation
+    mode: restart
+    then:
+      - if:
+          condition:
+            lambda: 'return strcmp(id(addressable_default_animation).current_option(), "Off") == 0;'
+          then:
+            - light.turn_off: base_lights
+            - light.turn_off: canopy_lights
+          else:
+            - if:
+                condition:
+                  lambda: 'return strcmp(id(addressable_default_animation).current_option(), "Solid White") == 0;'
+                then:
+                  - light.turn_on:
+                      id: base_lights
+                      brightness: 100%
+                      red: 100%
+                      green: 100%
+                      blue: 100%
+                  - light.turn_on:
+                      id: canopy_lights
+                      brightness: 100%
+                      red: 100%
+                      green: 100%
+                      blue: 100%
+                else:
+                  - light.turn_on:
+                      id: base_lights
+                      brightness: 100%
+                      red: 0%
+                      green: 0%
+                      blue: 100%
+                  - light.turn_on:
+                      id: canopy_lights
+                      brightness: 100%
+                      red: 0%
+                      green: 0%
+                      blue: 100%
+
+  # Startup sequence script (called from on_boot)
+  - id: startup_sequence
+    mode: restart
+    then:
+      - logger.log:
+          tag: system
+          level: INFO
+          format: "Turning fan off to start in case of a messy shutdown state."
+      - output.turn_off: fan1_pwm

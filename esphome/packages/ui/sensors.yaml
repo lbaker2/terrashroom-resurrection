@@ -1,0 +1,27 @@
+# Diagnostic Sensors (read-only template sensors for UI)
+
+# Future diagnostic sensors for control loop status
+# sensor:
+#   - platform: template
+#     name: "${friendly_name} Spritz Duration"
+#     id: spritz_duration_sensor
+#     unit_of_measurement: "ms"
+#     accuracy_decimals: 0
+#     lambda: |-
+#       return id(spritz_duration);
+
+#   - platform: template
+#     name: "${friendly_name} Heater Duty"
+#     id: heater_duty_sensor
+#     unit_of_measurement: "%"
+#     accuracy_decimals: 1
+#     lambda: |-
+#       return id(heater_duty) * 100.0f;
+
+#   - platform: template
+#     name: "${friendly_name} Last FAE"
+#     id: last_fae_sensor
+#     unit_of_measurement: "s"
+#     accuracy_decimals: 0
+#     lambda: |-
+#       return (millis() - id(last_fae_time)) / 1000;

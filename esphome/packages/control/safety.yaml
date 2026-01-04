@@ -1,0 +1,52 @@
+# Safety Controls
+# ================
+# Emergency scripts and safety guards for the chamber.
+#
+# Safety features:
+# - Emergency humidity flush: If humidity > 96%, max fans to protect electronics
+# - Max runtime guards: Prevent heater/atomizer from running too long
+# - Cooldown delays: Prevent rapid cycling of components
+# - Temperature ceiling: Hard cutoff if temperature gets dangerous
+
+# Future implementation:
+# script:
+#   - id: safety_flush
+#     mode: single
+#     then:
+#       - logger.log:
+#           tag: safety
+#           level: WARN
+#           format: "SAFETY: Humidity critical! Running emergency flush."
+#       # Turn atomizer off
+#       - output.turn_off: atomizer_pwm
+#       # Turn fans to maximum
+#       - output.set_level:
+#           id: fan1_pwm
+#           level: 1.0
+#       - output.set_level:
+#           id: fan2_pwm
+#           level: 1.0
+#       # Run for 2 minutes
+#       - delay: 120s
+#       # Check if safe now
+#       - lambda: |-
+#           float humidity = id(chamber_humidity).state;
+#           if (humidity < 93.0f) {
+#             ESP_LOGI("safety", "Humidity normalized: %.1f%%", humidity);
+#           } else {
+#             ESP_LOGW("safety", "Humidity still high: %.1f%% - continuing flush", humidity);
+#             id(safety_flush).execute();
+#           }
+#
+#   - id: emergency_shutdown
+#     mode: single
+#     then:
+#       - logger.log:
+#           tag: safety
+#           level: ERROR
+#           format: "EMERGENCY: Shutting down all outputs!"
+#       - output.turn_off: heater_pwm
+#       - output.turn_off: atomizer_pwm
+#       - output.turn_off: fan1_pwm
+#       - output.turn_off: fan2_pwm
+#       - output.turn_off: blower_pwm

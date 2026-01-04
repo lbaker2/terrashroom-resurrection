@@ -1,0 +1,34 @@
+# Terrashroom Local Configuration
+# ================================
+# Copy this file to terrashroom.yaml and customize for your setup.
+#
+# Required steps:
+#   1. Copy this file: cp terrashroom.example.yaml terrashroom.yaml
+#   2. Copy secrets: cp secrets.example.yaml secrets.yaml
+#   3. Edit secrets.yaml with your WiFi credentials and passwords
+#   4. Edit substitutions below for your network
+#   5. Flash: esphome run terrashroom.yaml --device /dev/cu.YOUR_SERIAL_PORT
+
+substitutions:
+  # Device identity
+  name: "terrashroom"
+  friendly_name: "Terrashroom Chamber"
+
+  # Network configuration - CUSTOMIZE THESE
+  static_ip: "192.168.1.100"
+  subnet: "255.255.255.0"
+  gateway: "192.168.1.1"
+
+  # Fallback AP (if WiFi fails, device creates this hotspot)
+  fallback_ssid: "Terrashroom-Setup"
+  fallback_password: "terrashroom"
+
+  # Web server
+  web_port: "80"
+  web_auth_user: "admin"
+
+# Import the base configuration
+# All secrets (wifi_ssid, wifi_password, ota_password, web_password)
+# are referenced via !secret in the packages and read from secrets.yaml
+packages:
+  base: !include terrashroom-base.yaml

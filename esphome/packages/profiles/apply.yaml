@@ -1,0 +1,32 @@
+# Profile Application
+# ====================
+# Script to apply species/phase profile parameters to control setpoints.
+# Uses profile data from includes/profile_data.h
+#
+# When a species or phase is selected, this script:
+# 1. Looks up the recommended parameters for that combination
+# 2. Updates humidity setpoint, temperature setpoint, FAE interval/duration
+# 3. Logs the profile change for debugging
+
+# Future implementation:
+# script:
+#   - id: apply_profile
+#     mode: restart
+#     then:
+#       - lambda: |-
+#           std::string species = id(species_select).current_option();
+#           std::string phase = id(phase_select).current_option();
+#
+#           auto profile = terrashroom::get_profile(species, phase);
+#
+#           ESP_LOGI("profile", "Applying profile: %s - %s", species.c_str(), phase.c_str());
+#           ESP_LOGI("profile", "  Humidity: %.0f%%", profile.humidity);
+#           ESP_LOGI("profile", "  Temperature: %.0f°F", profile.temp_f);
+#           ESP_LOGI("profile", "  FAE Interval: %ds", profile.fae_interval_s);
+#           ESP_LOGI("profile", "  FAE Duration: %ds", profile.fae_duration_s);
+#
+#           // Apply to setpoints
+#           // id(humidity_setpoint).publish_state(profile.humidity);
+#           // id(temperature_setpoint).publish_state(profile.temp_f);
+#           // id(fae_interval).publish_state(profile.fae_interval_s);
+#           // id(fae_duration).publish_state(profile.fae_duration_s);

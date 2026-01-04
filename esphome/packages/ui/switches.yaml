@@ -1,0 +1,49 @@
+# UI Switches (virtual/logic switches for control loops)
+
+switch:
+  # Blower enable toggle
+  - platform: template
+    name: "${friendly_name} Blower Enable"
+    id: blower_enable_switch
+    restore_mode: RESTORE_DEFAULT_OFF
+    lambda: |-
+      return id(blower_enabled);
+    turn_on_action:
+      - lambda: |-
+          id(blower_enabled) = true;
+          id(blower_pwm).set_level(id(blower_last_level));
+    turn_off_action:
+      - lambda: |-
+          id(blower_enabled) = false;
+          id(blower_pwm).turn_off();
+
+  # Testing animation toggle
+  - platform: template
+    name: "${friendly_name} Testing Animation"
+    id: testing_animation_switch
+    restore_mode: RESTORE_DEFAULT_OFF
+    turn_on_action:
+      - script.execute: testing_chase
+    turn_off_action:
+      - script.execute: apply_default_animation
+
+  # Future: Humidity control enable
+  # - platform: template
+  #   name: "${friendly_name} Humidity Control"
+  #   id: humidity_control_switch
+  #   restore_mode: RESTORE_DEFAULT_ON
+  #   optimistic: true
+
+  # Future: Temperature control enable
+  # - platform: template
+  #   name: "${friendly_name} Temperature Control"
+  #   id: temperature_control_switch
+  #   restore_mode: RESTORE_DEFAULT_ON
+  #   optimistic: true
+
+  # Future: FAE control enable
+  # - platform: template
+  #   name: "${friendly_name} FAE Control"
+  #   id: fae_control_switch
+  #   restore_mode: RESTORE_DEFAULT_ON
+  #   optimistic: true

@@ -1,0 +1,40 @@
+# Species and Phase Selection
+# ============================
+# Select entities for choosing mushroom species and growth phase.
+# When changed, triggers apply_profile script to set appropriate parameters.
+
+# Future implementation:
+# select:
+#   - platform: template
+#     name: "${friendly_name} Species"
+#     id: species_select
+#     optimistic: true
+#     options:
+#       - "Pink Oyster"
+#       - "Blue Oyster"
+#       - "Lion's Mane"
+#       - "Shiitake"
+#       - "King Trumpet"
+#     initial_option: "Pink Oyster"
+#     set_action:
+#       - script.execute: apply_profile
+#
+#   - platform: template
+#     name: "${friendly_name} Growth Phase"
+#     id: phase_select
+#     optimistic: true
+#     options:
+#       - "Colonization"
+#       - "Fruiting"
+#     initial_option: "Fruiting"
+#     set_action:
+#       - script.execute: apply_profile
+
+# text_sensor:
+#   - platform: template
+#     name: "${friendly_name} Active Profile"
+#     id: active_profile_sensor
+#     lambda: |-
+#       std::string species = id(species_select).current_option();
+#       std::string phase = id(phase_select).current_option();
+#       return species + " - " + phase;

@@ -1,0 +1,44 @@
+# LED Effects (included by lights.yaml)
+# This is a list fragment, not a standalone file
+
+- addressable_lambda:
+    name: "Startup Chase"
+    update_interval: 50ms
+    lambda: |-
+      static uint16_t step = 0;
+      for (int i = 0; i < it.size(); i++) {
+        if ((i + step) % 6 == 0) {
+          it[i] = Color(0, 255, 0);
+        } else {
+          it[i] = Color::BLACK;
+        }
+      }
+      step++;
+
+- addressable_lambda:
+    name: "Warning Chase"
+    update_interval: 60ms
+    lambda: |-
+      static uint16_t step = 0;
+      for (int i = 0; i < it.size(); i++) {
+        if ((i + step) % 6 == 0) {
+          it[i] = Color(255, 0, 0);
+        } else {
+          it[i] = Color::BLACK;
+        }
+      }
+      step++;
+
+- addressable_lambda:
+    name: "Testing Chase"
+    update_interval: 60ms
+    lambda: |-
+      static uint16_t step = 0;
+      for (int i = 0; i < it.size(); i++) {
+        if ((i + step) % 6 == 0) {
+          it[i] = Color(255, 255, 0);
+        } else {
+          it[i] = Color::BLACK;
+        }
+      }
+      step++;

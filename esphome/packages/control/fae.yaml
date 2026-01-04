@@ -1,0 +1,55 @@
+# Fresh Air Exchange (FAE) Control
+# ==================================
+# Stub file for FAE control loop implementation.
+#
+# Control logic overview:
+# - Periodically run fans at high speed to exchange chamber air
+# - Interval and duration configurable per mushroom species
+# - Typical: 30-60 second exchange every 30-60 minutes
+# - Helps control CO2 levels and prevent stagnant air
+#
+# See includes/control_logic.h for helper functions.
+
+# Future implementation:
+# interval:
+#   - interval: 60s
+#     then:
+#       - script.execute: fae_check
+
+# script:
+#   - id: fae_check
+#     mode: single
+#     then:
+#       - lambda: |-
+#           // Check if control is enabled
+#           if (!id(fae_control_enabled)) return;
+#
+#           int interval = id(fae_interval).state;
+#
+#           if (terrashroom::fae_due(id(last_fae_time), interval)) {
+#             id(run_fae_cycle).execute();
+#           }
+#
+#   - id: run_fae_cycle
+#     mode: single
+#     then:
+#       - logger.log:
+#           tag: fae
+#           level: INFO
+#           format: "Starting FAE cycle"
+#       - lambda: |-
+#           id(last_fae_time) = millis();
+#       # Turn fans to high
+#       # - output.set_level:
+#       #     id: fan1_pwm
+#       #     level: 1.0
+#       # - output.set_level:
+#       #     id: fan2_pwm
+#       #     level: 1.0
+#       # Wait for duration
+#       # - delay: !lambda 'return id(fae_duration).state * 1000;'
+#       # Return fans to normal
+#       - logger.log:
+#           tag: fae
+#           level: INFO
+#           format: "FAE cycle complete"

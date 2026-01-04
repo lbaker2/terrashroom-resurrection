@@ -1,0 +1,6 @@
+# ESP32 Board Configuration
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf

@@ -1,0 +1,8 @@
+# Web Server Configuration
+
+web_server:
+  port: ${web_port}
+  version: 3
+  auth:
+    username: "${web_auth_user}"
+    password: !secret web_password

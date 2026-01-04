@@ -1,0 +1,5 @@
+# Home Assistant API Configuration
+
+api:
+  encryption:
+    key: !secret api_key

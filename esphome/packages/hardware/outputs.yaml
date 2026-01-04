@@ -1,0 +1,40 @@
+# PWM Outputs
+
+output:
+  # Fan 1 (exhaust)
+  - platform: ledc
+    pin: GPIO32
+    frequency: 20kHz
+    id: fan1_pwm
+
+  # Fan 2 (intake)
+  - platform: ledc
+    pin: GPIO33
+    frequency: 20kHz
+    id: fan2_pwm
+
+  # Blower
+  - platform: ledc
+    pin: GPIO25
+    frequency: 20kHz
+    id: blower_pwm
+
+  # Atomizer
+  - platform: ledc
+    pin: GPIO13
+    frequency: 20kHz
+    id: atomizer_pwm
+
+  # Heater (lower frequency for MOSFET)
+  # Note: GPIO12 is a strapping pin - avoid external pull-ups/pull-downs
+  - platform: ledc
+    pin: GPIO12
+    frequency: 400Hz
+    id: heater_pwm
+
+# I2C bus for sensors
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+  frequency: 100kHz

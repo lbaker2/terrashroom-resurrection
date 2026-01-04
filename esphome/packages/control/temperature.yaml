@@ -1,0 +1,52 @@
+# Temperature Control
+# ====================
+# Stub file for temperature control loop implementation.
+#
+# Control logic overview:
+# - Compare chamber_temperature to setpoint with +/- 2°F tolerance
+# - If below tolerance, gradually increase heater duty
+# - If above tolerance, turn heater off immediately
+# - Maximum heater duty capped for safety
+# - Step adjustments are small to prevent overshoot
+#
+# See includes/control_logic.h for helper functions.
+
+# Future implementation:
+# interval:
+#   - interval: 30s
+#     then:
+#       - script.execute: temperature_control_loop
+
+# script:
+#   - id: temperature_control_loop
+#     mode: single
+#     then:
+#       - lambda: |-
+#           // Check if control is enabled
+#           if (!id(temperature_control_enabled)) return;
+#
+#           float temp = id(chamber_temperature).state;
+#           float setpoint = id(temperature_setpoint).state;
+#           float tolerance = 2.0f;  // °F
+#           float max_duty = 0.8f;   // 80% max
+#           float step = 0.05f;      // 5% increments
+#
+#           // Safety check
+#           if (terrashroom::temperature_dangerous(temp, 95.0f)) {
+#             id(heater_pwm).set_level(0.0f);
+#             id(heater_duty) = 0.0f;
+#             ESP_LOGW("temperature", "Temperature dangerous! Heater disabled.");
+#             return;
+#           }
+#
+#           // Calculate new duty
+#           float new_duty = terrashroom::calculate_heater_duty(
+#             temp, setpoint, tolerance,
+#             id(heater_duty), max_duty, step
+#           );
+#
+#           if (new_duty != id(heater_duty)) {
+#             id(heater_duty) = new_duty;
+#             id(heater_pwm).set_level(new_duty);
+#             ESP_LOGI("temperature", "Heater duty: %.1f%%", new_duty * 100.0f);
+#           }

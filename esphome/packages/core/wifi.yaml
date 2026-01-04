@@ -1,0 +1,40 @@
+# WiFi Configuration
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none
+
+  ap:
+    ssid: "${fallback_ssid}"
+    password: "${fallback_password}"
+
+  manual_ip:
+    static_ip: ${static_ip}
+    subnet: ${subnet}
+    gateway: ${gateway}
+
+  on_connect:
+    - wait_until:
+        condition:
+          lambda: 'return !id(ip_addr).state.empty();'
+    - logger.log:
+        tag: network
+        level: INFO
+        format: "Connected. IP: %s"
+        args: ['id(ip_addr).state.c_str()']
+    - script.execute: startup_chase
+
+  on_disconnect:
+    - logger.log:
+        tag: network
+        level: WARN
+        format: "WiFi disconnected"
+    - script.execute: warning_chase
+
+# IP address sensor
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      id: ip_addr
+      name: "${friendly_name} IP"

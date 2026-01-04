@@ -1,0 +1,45 @@
+# Control Loop Globals
+# ====================
+# Global variables used by control loop scripts.
+# These store state that persists across control loop iterations.
+
+globals:
+  # Blower state
+  - id: blower_last_level
+    type: float
+    initial_value: "0.392"
+
+  - id: blower_enabled
+    type: bool
+    initial_value: "true"
+
+  # Future: Humidity control state
+  # - id: spritz_duration
+  #   type: int
+  #   initial_value: "1000"  # milliseconds
+  #
+  # - id: last_spritz_time
+  #   type: uint32_t
+  #   initial_value: "0"
+  #
+  # - id: humidity_control_enabled
+  #   type: bool
+  #   initial_value: "true"
+
+  # Future: Temperature control state
+  # - id: heater_duty
+  #   type: float
+  #   initial_value: "0.0"
+  #
+  # - id: temperature_control_enabled
+  #   type: bool
+  #   initial_value: "true"
+
+  # Future: FAE control state
+  # - id: last_fae_time
+  #   type: uint32_t
+  #   initial_value: "0"
+  #
+  # - id: fae_control_enabled
+  #   type: bool
+  #   initial_value: "true"
