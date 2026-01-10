@@ -24,8 +24,8 @@ substitutions:
   fallback_password: "terrashroom"
 
   # Web server
-  web_port: "80"
-  web_auth_user: "admin"
+  # web_port: "80"
+  # web_auth_user: "admin"
 
 # Import the base configuration
 # All secrets (wifi_ssid, wifi_password, ota_password, web_password)

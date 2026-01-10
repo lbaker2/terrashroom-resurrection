@@ -16,7 +16,7 @@ select:
       - "Off"
       - "Solid White"
       - "Solid Blue"
-    initial_option: "Solid White"
+    initial_option: "Solid Blue"
     set_action:
       - script.execute: apply_default_animation
 
