@@ -1,0 +1,59 @@
+# Humidity Control
+# =================
+# Stub file for humidity control loop implementation.
+#
+# Control logic overview:
+# - Compare chamber_humidity to setpoint every 30 seconds
+# - If below setpoint, trigger atomizer "spritz" with blower assist
+# - Spritz duration starts small and increases gradually if humidity stays low
+# - Wait at least 60 seconds between adjusting spritz duration and triggering
+# - Blower runs ~15 seconds before humidity check at 50% to distribute air
+# - Emergency: If humidity > 96%, turn fans to max for safety flush
+#
+# See includes/control_logic.h for helper functions.
+
+# Future implementation:
+# interval:
+#   - interval: 30s
+#     then:
+#       - script.execute: humidity_control_loop
+
+# script:
+#   - id: humidity_control_loop
+#     mode: single
+#     then:
+#       - lambda: |-
+#           // Check if control is enabled
+#           if (!id(humidity_control_enabled)) return;
+#
+#           float humidity = id(chamber_humidity).state;
+#           float setpoint = id(humidity_setpoint).state;
+#
+#           // Safety check - flush if too humid
+#           if (terrashroom::humidity_critical(humidity, 96.0f)) {
+#             // Trigger emergency flush
+#             id(safety_flush).execute();
+#             return;
+#           }
+#
+#           // Normal control logic
+#           if (humidity < (setpoint - 3.0f)) {
+#             // Humidity too low - run spritz
+#             if (terrashroom::spritz_cooldown_elapsed(id(last_spritz_time), 60000)) {
+#               id(run_spritz).execute();
+#             }
+#           }
+#
+#   - id: run_spritz
+#     mode: single
+#     then:
+#       - logger.log:
+#           tag: spritz
+#           level: INFO
+#           format: "Running spritz for %d ms"
+#           args: ['id(spritz_duration)']
+#       # Turn on blower high
+#       # Turn on atomizer
+#       # Delay for spritz_duration
+#       # Turn off atomizer
+#       # Return blower to normal

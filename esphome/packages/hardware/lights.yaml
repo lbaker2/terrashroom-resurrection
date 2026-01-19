@@ -1,0 +1,54 @@
+# Light Outputs
+
+light:
+  # PWM outputs exposed as lights for web UI control
+  - platform: monochromatic
+    name: "Fan 1"
+    output: fan1_pwm
+    id: fan1_light
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Fan 2"
+    output: fan2_pwm
+    id: fan2_light
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Blower"
+    output: blower_pwm
+    id: blower_light
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Atomizer"
+    output: atomizer_pwm
+    id: atomizer_light
+    default_transition_length: 0s
+
+  - platform: monochromatic
+    name: "Heater"
+    output: heater_pwm
+    id: heater_light
+    default_transition_length: 1s
+
+  # Addressable LED strips
+  - platform: esp32_rmt_led_strip
+    id: base_lights
+    name: "Base Lights"
+    rgb_order: GRB
+    chipset: WS2812
+    pin: GPIO5
+    num_leds: 24
+    default_transition_length: 0s
+    effects: !include ../ui/led_effects_list.yaml
+
+  - platform: esp32_rmt_led_strip
+    id: canopy_lights
+    name: "Canopy Lights"
+    rgb_order: GRB
+    chipset: WS2812
+    pin: GPIO14
+    num_leds: 64
+    default_transition_length: 0s
+    effects: !include ../ui/led_effects_list.yaml

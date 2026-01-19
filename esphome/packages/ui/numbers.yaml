@@ -1,0 +1,55 @@
+# Number Inputs (setpoint sliders)
+
+number:
+  - platform: template
+    name: "Blower Speed"
+    id: blower_speed_number
+    min_value: 0.392
+    max_value: 1.0
+    step: 0.01
+    mode: slider
+    lambda: |-
+      return id(blower_last_level);
+    set_action:
+      then:
+        - lambda: |-
+            id(blower_last_level) = x;
+            if (id(blower_enabled)) {
+              id(blower_pwm).set_level(x);
+            }
+
+  # Future: Humidity setpoint slider
+  # - platform: template
+  #   name: "Humidity Setpoint"
+  #   id: humidity_setpoint
+  #   min_value: 70
+  #   max_value: 95
+  #   step: 1
+  #   unit_of_measurement: "%"
+  #   mode: slider
+  #   optimistic: true
+  #   initial_value: 85
+
+  # Future: Temperature setpoint slider
+  # - platform: template
+  #   name: "Temperature Setpoint"
+  #   id: temperature_setpoint
+  #   min_value: 55
+  #   max_value: 85
+  #   step: 1
+  #   unit_of_measurement: "°F"
+  #   mode: slider
+  #   optimistic: true
+  #   initial_value: 72
+
+  # Future: FAE interval slider
+  # - platform: template
+  #   name: "FAE Interval"
+  #   id: fae_interval
+  #   min_value: 300
+  #   max_value: 7200
+  #   step: 60
+  #   unit_of_measurement: "s"
+  #   mode: slider
+  #   optimistic: true
+  #   initial_value: 1800

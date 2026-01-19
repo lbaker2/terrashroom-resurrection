@@ -1,0 +1,77 @@
+# Terrashroom Base Configuration
+# ===============================
+# This file contains all shareable configuration.
+# Users import this via packages and override substitutions locally.
+#
+# DO NOT put secrets or user-specific values here.
+# Use ${substitution} for anything that varies per installation.
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+  name_add_mac_suffix: true
+
+  project:
+    name: terrashroom.chamber
+    version: "0.1.0"
+
+  platformio_options:
+    platform: "espressif32@6.12.0"
+    platform_packages:
+      - "platformio/framework-espidf@~3.50402.0"
+    board_build.flash_mode: "dio"
+    extra_scripts:
+      - "post:../../../scripts/cancel_binary_merge.py"
+
+  includes:
+    - includes/control_logic.h
+    - includes/profile_data.h
+
+  on_boot:
+    priority: -10
+    then:
+      - logger.log:
+          tag: system
+          level: INFO
+          format: "Terrashroom booting..."
+      - script.execute: startup_sequence
+
+# Import all packages
+packages:
+  # Core
+  board: !include packages/core/board.yaml
+  wifi: !include packages/core/wifi.yaml
+  # api: !include packages/core/api.yaml - enable if using Home Assistant
+  web_server: !include packages/core/web_server.yaml
+  ota: !include packages/core/ota.yaml
+  logging: !include packages/core/logging.yaml
+
+  # Hardware
+  outputs: !include packages/hardware/outputs.yaml
+  sensors: !include packages/hardware/sensors.yaml
+  binary_sensors: !include packages/hardware/binary_sensors.yaml
+  lights: !include packages/hardware/lights.yaml
+  switches: !include packages/hardware/switches.yaml
+
+  # Control loops
+  globals: !include packages/control/globals.yaml
+  humidity_control: !include packages/control/humidity.yaml
+  temperature_control: !include packages/control/temperature.yaml
+  fae_control: !include packages/control/fae.yaml
+  safety: !include packages/control/safety.yaml
+
+  # Profiles
+  profile_selects: !include packages/profiles/selects.yaml
+  profile_apply: !include packages/profiles/apply.yaml
+
+  # UI
+  ui_numbers: !include packages/ui/numbers.yaml
+  ui_switches: !include packages/ui/switches.yaml
+  ui_sensors: !include packages/ui/sensors.yaml
+  ui_effects: !include packages/ui/effects.yaml
+
+# Uncomment to enable dashboard import for Home Assistant adoption
+# Dashboard import for ESPHome adoption
+# dashboard_import:
+#   package_import_url: github://lbaker2/terrashroom/esphome/terrashroom-base.yaml@main
+#   import_full_config: false

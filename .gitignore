@@ -1,8 +1,30 @@
-.pio
-.vscode
-.zed
+# ESPHome build artifacts
+.esphome/
+
+# User-specific configuration
+esphome/terrashroom.yaml
+esphome/secrets.yaml
+
+# PlatformIO
+.pio/
+.platformio/
+
+# OS artifacts
 .DS_Store
-.platformio
+Thumbs.db
+
+# Editor artifacts
+*.swp
+*.swo
+.vscode/
+.zed/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Legacy directories
 chamber/
 camera/
 old_infrastructure_pipeline/

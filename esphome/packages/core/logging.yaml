@@ -1,0 +1,14 @@
+# Logging Configuration
+
+logger:
+  level: INFO
+  logs:
+    humidity: INFO
+    temperature: INFO
+    fae: INFO
+    spritz: INFO
+    profile: INFO
+    safety: WARN
+    network: INFO
+    water: INFO
+    system: INFO
